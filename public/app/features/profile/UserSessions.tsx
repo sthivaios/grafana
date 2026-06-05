@@ -6,7 +6,7 @@ import { Trans, t } from '@grafana/i18n';
 import { Button, Icon, LoadingPlaceholder, ScrollContainer, Text, useStyles2 } from '@grafana/ui';
 import { TagBadge } from 'app/core/components/TagFilter/TagBadge';
 import { formatDate } from 'app/core/internationalization/dates';
-import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
+import getOAuthProviderDisplayName from 'app/core/utils/authProviders';
 import { type UserSession } from 'app/types/user';
 
 interface Props {
@@ -76,7 +76,7 @@ const UserSessions = memo<Props>(({ isLoading, sessions, revokeUserSession }) =>
                     </td>
                     <td>
                       {session.authModule && (
-                        <TagBadge label={getUserOAuthProviderDisplayName(session.authModule)} removeIcon={false} count={0} />
+                        <TagBadge label={getOAuthProviderDisplayName(session.authModule)} removeIcon={false} count={0} />
                       )}
                     </td>
                     <td>

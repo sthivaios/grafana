@@ -6,7 +6,7 @@ import { Trans, t } from '@grafana/i18n';
 import { Button, ConfirmButton, ConfirmModal, Input, LegacyInputStatus, Stack } from '@grafana/ui';
 import { contextSrv } from 'app/core/services/context_srv';
 import { AccessControlAction } from 'app/types/accessControl';
-import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
+import getOAuthProviderDisplayName from 'app/core/utils/authProviders';
 import { type UserDTO } from 'app/types/user';
 
 interface Props {
@@ -77,7 +77,7 @@ export function UserProfile({
   if (user.isProvisioned) {
     authSource = 'SCIM';
   }
-  const lockMessage = `Synced via ${getUserOAuthProviderDisplayName(authSource)}`;
+  const lockMessage = `Synced via ${getOAuthProviderDisplayName(authSource)}`;
 
   const editLocked =
     user.isExternal || user.isProvisioned || !contextSrv.hasPermissionInMetadata(AccessControlAction.UsersWrite, user);
