@@ -3,6 +3,7 @@ import { Trans, t } from '@grafana/i18n';
 import { Button, Field, FieldSet, Icon, Input, Tooltip } from '@grafana/ui';
 import { Form } from 'app/core/components/Form/Form';
 import config from 'app/core/config';
+import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
 import { type UserDTO } from 'app/types/user';
 
 import { type ProfileUpdateFields } from './types';
@@ -26,7 +27,8 @@ export const UserProfileEditForm = ({ user, isSavingUser, updateProfile }: Props
   if (user?.isProvisioned) {
     authSource = 'SCIM';
   }
-  const lockMessage = authSource ? ` (Synced via ${authSource})` : '';
+
+  const lockMessage = ` (Synced via ${getUserOAuthProviderDisplayName(authSource)})`;
   const disabledEdit = disableLoginForm || isExternalUser;
 
   return (

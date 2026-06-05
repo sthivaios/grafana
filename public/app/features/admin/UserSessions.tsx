@@ -6,6 +6,7 @@ import { TagBadge } from 'app/core/components/TagFilter/TagBadge';
 import { formatDate } from 'app/core/internationalization/dates';
 import { contextSrv } from 'app/core/services/context_srv';
 import { AccessControlAction } from 'app/types/accessControl';
+import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
 import { type UserSession } from 'app/types/user';
 
 interface Props {
@@ -77,7 +78,13 @@ export const UserSessions = memo(({ sessions, onSessionRevoke, onAllSessionsRevo
                     <td>{session.clientIp}</td>
                     <td>{`${session.browser} on ${session.os} ${session.osVersion}`}</td>
                     <td>
-                      {session.authModule && <TagBadge label={session.authModule} removeIcon={false} count={0} />}
+                      {session.authModule && (
+                        <TagBadge
+                          label={getUserOAuthProviderDisplayName(session.authModule)}
+                          removeIcon={false}
+                          count={0}
+                        />
+                      )}
                     </td>
                     <td>
                       {canLogout && (

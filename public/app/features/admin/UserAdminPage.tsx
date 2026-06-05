@@ -8,6 +8,7 @@ import { featureEnabled } from '@grafana/runtime';
 import { Stack } from '@grafana/ui';
 import { Page } from 'app/core/components/Page/Page';
 import { contextSrv } from 'app/core/services/context_srv';
+import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
 import { AccessControlAction } from 'app/types/accessControl';
 import { type SyncInfo } from 'app/types/ldap';
 import { type StoreState } from 'app/types/store';
@@ -123,7 +124,7 @@ export const UserAdminPage = ({
   if (user?.isProvisioned) {
     authSource = 'SCIM';
   }
-  const lockMessage = authSource ? `Synced via ${authSource}` : '';
+  const lockMessage = `Synced via ${getUserOAuthProviderDisplayName(authSource)}`;
   const pageNav: NavModelItem = {
     text: user?.login ?? '',
     icon: 'shield',

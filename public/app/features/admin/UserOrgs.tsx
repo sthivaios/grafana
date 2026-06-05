@@ -8,6 +8,7 @@ import { UserRolePicker } from 'app/core/components/RolePicker/UserRolePicker';
 import { fetchRoleOptions, updateUserRoles } from 'app/core/components/RolePicker/api';
 import { OrgPicker, type OrgSelectItem } from 'app/core/components/Select/OrgPicker';
 import { contextSrv } from 'app/core/services/context_srv';
+import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
 import { AccessControlAction, type Role } from 'app/types/accessControl';
 import { type Organization } from 'app/types/organization';
 import { type UserOrg, type UserDTO } from 'app/types/user';
@@ -159,7 +160,7 @@ const OrgRow = memo(({ user, org, isExternalUser, onOrgRemove, onOrgRoleChange }
   };
 
   const authSource = user?.authLabels?.length && user?.authLabels[0];
-  const lockMessage = authSource ? `Synced via ${authSource}` : '';
+  const lockMessage = `Synced via ${getUserOAuthProviderDisplayName(authSource)}`;
   const labelClass = cx('width-16', styles.label);
   const canChangeRole = contextSrv.hasPermission(AccessControlAction.OrgUsersWrite);
   const canRemoveFromOrg = contextSrv.hasPermission(AccessControlAction.OrgUsersRemove) && !isExternalUser;

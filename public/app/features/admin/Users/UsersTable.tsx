@@ -17,6 +17,7 @@ import {
   Tooltip,
 } from '@grafana/ui';
 import { TagBadge } from 'app/core/components/TagFilter/TagBadge';
+import getUserOAuthProviderDisplayName from 'app/core/utils/getUserOAuthProviderDisplayName';
 import { type UserDTO } from 'app/types/user';
 
 import { OrgUnits } from './OrgUnits';
@@ -165,7 +166,11 @@ export const UsersTable = ({
         id: 'authLabels',
         header: 'Origin',
         cell: ({ cell: { value } }: Cell<'authLabels'>) => (
-          <>{Array.isArray(value) && value.length > 0 && <TagBadge label={value[0]} removeIcon={false} count={0} />}</>
+          <>
+            {Array.isArray(value) && value.length > 0 && (
+              <TagBadge label={getUserOAuthProviderDisplayName(value[0])} removeIcon={false} count={0} />
+            )}
+          </>
         ),
       },
       {
